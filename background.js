@@ -4,7 +4,18 @@ function cancelRequest(requestDetails) {
   return { cancel: true };
 }
 
-function refreshBlocker(enabled, blockedUrls) {
+function textToBlockedUrls(text) {
+  var blockedUrls = text
+    .split("\n")
+    .map(u => u.trim())
+    .filter(u => u)
+    .map(u => "*://*." + u + "/*");
+  return blockedUrls;
+}
+
+function refreshBlocker(enabled, blockedUrlsText) {
+  var blockedUrls = textToBlockedUrls(blockedUrlsText);
+
   // set correct browser action icon
   browser.browserAction.setIcon({ path: enabled ? "icons/browser-action-enabled.png" : "icons/browser-action-disabled.png" });
 
@@ -31,9 +42,10 @@ function initialize(settings) {
 
 var defaultSettings = {
   enabled: true,
-  blockedUrls: [
-    "*://*.facebook.com/*"
-  ]
+  blockedUrls: `
+    facebook.com
+    twitter.com
+  `
 }
 var settingsPromise = browser.storage.local.get("settings");
 settingsPromise.then(function (item) {
