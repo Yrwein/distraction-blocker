@@ -16,22 +16,16 @@ function refreshBlocker(enabled, blockedUrls) {
 }
 
 function initialize(settings) {
-  function saveSettings() {
-    browser.storage.local.set({ settings : {
-      enabled: enabled,
-      blockedUrls: blockedUrls
-    }});
-  }
-
-  var enabled = settings.enabled;
-  var blockedUrls = settings.blockedUrls;
-
-  refreshBlocker(enabled, blockedUrls);
+  refreshBlocker(settings.enabled, settings.blockedUrls);
 
   browser.browserAction.onClicked.addListener(function () {
-    enabled = ! enabled;
-    saveSettings();
-    refreshBlocker(enabled, blockedUrls);
+    settings.enabled = ! settings.enabled;
+    browser.storage.local.set({ settings : settings });
+  });
+
+  browser.storage.onChanged.addListener(function (changes) {
+    settings = changes.settings.newValue;
+    refreshBlocker(settings.enabled, settings.blockedUrls);
   });
 }
 
@@ -43,7 +37,7 @@ var defaultSettings = {
 }
 var settingsPromise = browser.storage.local.get("settings");
 settingsPromise.then(function (item) {
-  if (item.settings && item.settings[0]) {
+  if (item.settings && item.settings[0]) { // firefox prior 52
     initialize(item.settings[0]);
   } else if (item.settings) {
     initialize(item.settings);
