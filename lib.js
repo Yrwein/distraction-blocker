@@ -1,11 +1,14 @@
 
+if (typeof(chrome) !== 'undefined') {
+	var browser = chrome;
+}
+
 function loadSettings(onSettings) {
 	var defaultSettings = {
 	  enabled: true,
 	  blockedUrls: ``
 	}
-	var settingsPromise = browser.storage.local.get("settings");
-	settingsPromise.then(function (item) {
+	var settingsPromise = browser.storage.local.get("settings", function (item) {
 	  if (item.settings && item.settings[0]) { // firefox prior 52
 	    onSettings(item.settings[0]);
 	  } else if (item.settings) {
@@ -13,8 +16,5 @@ function loadSettings(onSettings) {
 	  } else {
 	    onSettings(defaultSettings);
 	  }
-	}, function (error) {
-	  console.log(`Error: ${error}`);
-	  onSettings(defaultSettings);
 	});
 }
