@@ -1,0 +1,21 @@
+{
+  "manifest_version": 2,
+  "name": "Distraction Blocker",
+  "version": "1.0",
+
+  "description": "Blocks access to time-waisting sites.",
+
+  "icons": {
+    "48": "icons/main.svg",
+    "96": "icons/main.svg"
+  },
+
+  "permissions": [
+    "webRequest",
+    "webRequestBlocking"
+  ],
+
+  "background": {
+    "scripts": [ "background.js" ]
+  }
+}
