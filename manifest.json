@@ -21,7 +21,14 @@
     "default_title": "Block requests"
   },
 
+  "options_ui": {
+    "page": "options.html"
+  },
+
   "background": {
-    "scripts": [ "background.js" ]
+    "scripts": [
+      "lib.js",
+      "background.js"
+    ]
   }
 }

@@ -40,23 +40,4 @@ function initialize(settings) {
   });
 }
 
-var defaultSettings = {
-  enabled: true,
-  blockedUrls: `
-    facebook.com
-    twitter.com
-  `
-}
-var settingsPromise = browser.storage.local.get("settings");
-settingsPromise.then(function (item) {
-  if (item.settings && item.settings[0]) { // firefox prior 52
-    initialize(item.settings[0]);
-  } else if (item.settings) {
-    initialize(item.settings);
-  } else {
-    initialize(defaultSettings);
-  }
-}, function (error) {
-  console.log(`Error: ${error}`);
-  initialize(defaultSettings);
-});
+loadSettings(initialize);
