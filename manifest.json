@@ -12,8 +12,14 @@
 
   "permissions": [
     "webRequest",
-    "webRequestBlocking"
+    "webRequestBlocking",
+    "storage"
   ],
+
+  "browser_action": {
+    "default_icon": "icons/browser-action-enabled.png",
+    "default_title": "Block requests"
+  },
 
   "background": {
     "scripts": [ "background.js" ]
