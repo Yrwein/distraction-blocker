@@ -1,10 +1,10 @@
 
 function loadSettings(onSettings) {
-	var defaultSettings = {
-	  enabled: true,
-	  blockedUrls: ``
-	}
-	var settingsPromise = browser.storage.local.get("settings");
+	const defaultSettings = {
+		enabled: true,
+		blockedUrls: ``
+	};
+	const settingsPromise = browser.storage.local.get("settings");
 	settingsPromise.then(function (item) {
 	  if (item.settings && item.settings[0]) { // firefox prior 52
 	    onSettings(item.settings[0]);

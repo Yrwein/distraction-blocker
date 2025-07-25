@@ -5,16 +5,16 @@ function cancelRequest(requestDetails) {
 }
 
 function textToBlockedUrls(text) {
-  var blockedUrls = text
-    .split("\n")
-    .map(u => u.trim())
-    .filter(u => u)
-    .map(u => "*://*." + u + "/*");
-  return blockedUrls;
+  return text
+      .split("\n")
+      .map(u => u.trim())
+      .filter(u => u)
+      .map(u => "*://*." + u + "/*");
 }
 
 function refreshBlocker(enabled, blockedUrlsText) {
-  var blockedUrls = textToBlockedUrls(blockedUrlsText);
+  const blockedUrls = textToBlockedUrls(blockedUrlsText);
+  console.log(enabled, blockedUrlsText, blockedUrls)
 
   // set correct browser action icon
   browser.browserAction.setIcon({ path: enabled ? "icons/browser-action-enabled.png" : "icons/browser-action-disabled.png" });

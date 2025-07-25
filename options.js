@@ -8,7 +8,7 @@ function initialize(settings) {
 
   // save new setting on textarea change
   // - the actual saving is delayed for performance reasons
-  var saveEventId = null;
+  let saveEventId = null;
   document.getElementById("blocked-urls").addEventListener("keyup", function (e) {
     if (saveEventId) {
       window.clearTimeout(saveEventId);
